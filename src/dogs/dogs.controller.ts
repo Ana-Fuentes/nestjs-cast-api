@@ -2,7 +2,7 @@ import { Controller, Get, Post, Patch, Delete, Body, Param, ParseIntPipe, HttpCo
 import { DogsService } from './dogs.service';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { UpdateDogDto } from './dto/update-dog.dto';
-import { Dog } from './interfaces/dog.interface';
+import type { Dog } from './interfaces/dog.interface';
 
 @Controller('dogs')
 export class DogsController {
@@ -38,7 +38,7 @@ export class DogsController {
     this.dogsService.delete(id);
     return { 
       message: `Dog with ID ${id} deleted successfully`,
-      timestamp: new Date().toISOString()
+      //timestamp: new Date().toISOString()
     };
   }
 }
