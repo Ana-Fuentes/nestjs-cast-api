@@ -3,16 +3,18 @@ import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import type { Cat } from './interfaces/cat.interface';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
 
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @Get()
-  findAll(): Cat[] {
-    return this.catsService.findAll();
-  }
-
+ @UseGuards(JwtAuthGuard)
+@Get()
+findAll() {
+  return this.catsService.findAll();
+}
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Cat {
     return this.catsService.findOne(id);
